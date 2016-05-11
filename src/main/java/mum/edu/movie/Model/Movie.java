@@ -31,7 +31,7 @@ public class Movie implements Serializable{
 	private List<Artist> artists= new ArrayList<Artist>();
     @ElementCollection
     @OneToMany
-	private List<String> comments = new ArrayList<String>();
+	private List<Comment> comments = new ArrayList<Comment>();
 	@Lob
     private byte[] cover;
 	private int rating;
@@ -41,10 +41,18 @@ public class Movie implements Serializable{
 		super();
 	}
 	
-	
-	
+
+
+
+
+
+
+
+
+
+
 	public Movie(long id, String summary, String title, int year, List<Director> directors, List<Artist> artists,
-			List<String> comments, byte[] cover, int rating, String genre) {
+			List<Comment> comments, byte[] cover, int rating, String genre) {
 		super();
 		this.id = id;
 		this.summary = summary;
@@ -59,26 +67,41 @@ public class Movie implements Serializable{
 	}
 
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+
+
+
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
 
 	public void addDirector(Director dirctor)
 	{
 		directors.add(dirctor);
 		
 	}
-	public void addComment(String comment){
+	/*public void addComment(String comment){
 		comments.add(comment);
 	}
-
+*/
 	public void addArtists(Artist artist){
 		artists.add(artist);
 	}
 	
-	public List<String> getComments() {
-		return comments;
-	}
-	public void setComments(List<String> comments) {
-		this.comments = comments;
-	}
+
 	
 	public List<Artist> getArtists() {
 		return artists;

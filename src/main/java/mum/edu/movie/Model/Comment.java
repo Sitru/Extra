@@ -36,11 +36,12 @@ public class Comment {
 		public Comment() {
 			super();
 		}
-		public Comment(String comment, Movie movie) {
+		public Comment(String comment, Movie movie,User user) {
 			super();
 			this.comment = comment;
 			
 			this.movie = movie;
+			this.user=user;
 		}
 		public long getId() {
 			return id;

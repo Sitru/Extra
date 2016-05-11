@@ -12,22 +12,22 @@
 	
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://localhost/Movie_extra"></property>
+		<property name="url" value="jdbc:mysql://localhost/s_movies?createDatabaseIfNotExist=true"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="8106"></property>
 	</bean>
 	
-	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="hibernateProperties" ref="hibernateProperties"></property>
-		 
-				<property name="packagesToScan" value="mum.edu.movie">	
+		<!--  
+				<property name="packagesToScan" value="EAProject">	
 				</property>
-				
-		<property name="packagesToScan" value="mum.edu.movie">	
+				-->
+		<property name="packagesToScan" value="extra">	
 				</property>
 	</bean>
-	 -->
+	
 	
 	<bean id="hibernateProperties" class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
@@ -46,9 +46,9 @@
 	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
-
+	
 	<mvc:annotation-driven />
-	<context:component-scan  base-package="mum.edu.movie.Controller.MovieController"/>
+	<context:component-scan  base-package="extra.mum.controllers"/>
 	
 	
 	<bean
@@ -66,8 +66,33 @@
     up static resources in the ${webappRoot}/resources/ directory -->
     <mvc:resources mapping="/resources/**" location="/resources/" />
 	
-	
 	<!-- DAO BEANS-->
-	
+	<bean id="ArtistDAO" class="mum.edu.movie.DaoImpl.ArtistDAOImpl">
+		<property name="sf" ref="sessionFactory" />
+	</bean>
+	<bean id="DirectorDAO" class="mum.edu.movie.DaoImpl.DirectorDaoImpl">
+		<property name="sf" ref="sessionFactory" />
+	</bean>
+	<bean id="MovieDAO" class="mum.edu.movie.DaoImpl.MovieDaoImpl">
+		<property name="sf" ref="sessionFactory" />
+	</bean>
+	<bean id="MovieDAO" class="mum.edu.movie.DaoImpl.MovieDaoImpl">
+		<property name="sf" ref="sessionFactory" />
+	</bean>
+	<bean id="MovieUserDAO" class="mum.edu.movie.DaoImpl.MovieUserDAOImpl">
+		<property name="sf" ref="sessionFactory" />
+	</bean>
+	<bean id="UserDAO" class="mum.edu.movie.DaoImpl.UserDAOImpl">
+		<property name="sf" ref="sessionFactory" />
+	</bean>
+	<!-- Service Beans -->
+		<bean id="movieservice" class="mum.edu.movieServiceImpl.MovieServiceimpl">
+			<constructor-arg ref="MovieDAO"/>
+			</bean>
+		<bean id="Commentservice" class="mum.edu.movieServiceImpl.CommentServiceImpl">
+			<constructor-arg index="0" ref="MovieUserDAO"/>
+			<constructor-arg index="1" ref="MovieDao"/>
+			<constructor-arg index="2" ref="UserDAO"/>
+			</bean>	
 	
 </beans>
